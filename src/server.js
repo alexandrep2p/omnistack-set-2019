@@ -3,7 +3,9 @@ const routes = require('./routes');
 const mongoose = require('mongoose');   
 
 const app = express();
+
 //url do cluster no mongodb atlas
+//[user]:[senha]... ...mongodb.net/[nome do banco]
 mongoose.connect('mongodb+srv://omniuser:omniuser@clusteromnistack-kkz2a.mongodb.net/AirCncDb?retryWrites=true&w=majority',{
     useNewUrlParser:true,
     useUnifiedTopology:true
@@ -16,6 +18,8 @@ mongoose.connect('mongodb+srv://omniuser:omniuser@clusteromnistack-kkz2a.mongodb
 //utilizar json para requests e responses
 app.use(express.json());
 
+//arquivo routes.js com as rotas da api
 app.use(routes);
 
+//porta de acesso
 app.listen(3333);
