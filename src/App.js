@@ -1,22 +1,20 @@
 import React from 'react';
 import './App.css';
 
+import { ReactComponent as Logo } from './assets/logo.svg';
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Logo />
+      <div className="content">
+        <p>Ofereça <b>spots</b> para programadores e encontre <b>talentos</b> para sua empresa.</p>
+        <form >
+          <label htmlFor="email">EMAIL</label>
+          <input type="email" id="email" placeholder="john@domain.com" />
+          <button className="btn">Entrar</button>
+        </form>
+      </div>
     </div>
   );
 }
