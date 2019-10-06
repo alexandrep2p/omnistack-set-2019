@@ -8,9 +8,11 @@ function App() {
 
   const [email, setEmail] = useState('');
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
+    //evitar o comportamento padrão de redirect apos clicar no submit do form
     event.preventDefault();
-    console.log(email)
+    const response = await api.post('/sessions', { email });
+    console.log(response)
   }
 
   return (
@@ -25,7 +27,7 @@ function App() {
             id="email"
             placeholder="john@domain.com"
             value={email}
-            onChange={event => setEmail(event.target.value)} 
+            onChange={event => setEmail(event.target.value)}
           />
           <button className="btn">Entrar</button>
         </form>
