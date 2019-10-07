@@ -14,7 +14,8 @@ export default function New({ history }) {
     },
         [thumbnail])
 
-    async function handleSubmit() {
+    async function handleSubmit(event) {
+        event.preventDefault();
         //Payload caso a request espere dados no formato mult-part e nao JSON como no login
         const data = new FormData();
         data.append('company', company);
@@ -34,7 +35,7 @@ export default function New({ history }) {
     }
 
     return (
-        <form onSubmit="{handleSubmit}">
+        <form onSubmit={handleSubmit}>
             <label
                 id="thumbnail"
                 style={{ backgroundImage: `url(${preview})` }}
