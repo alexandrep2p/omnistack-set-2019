@@ -2,6 +2,7 @@ const express = require('express');
 const routes = require('./routes');
 const mongoose = require('mongoose');   
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 
@@ -25,6 +26,8 @@ app.use(express.json());
 
 //arquivo routes.js com as rotas da api
 app.use(routes);
+
+app.use('/files', express.static((path.resolve(__dirname, '..', 'uploads'))));
 
 //porta de acesso
 app.listen(3333);
