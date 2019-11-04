@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, AsyncStorage, KeyboardAvoidingView, StyleSheet, Text, TextInput, Image, TouchableOpacity } from 'react-native';
 import api from '../services/api';
 
@@ -8,6 +8,15 @@ export default function Login({navigation}) {
     const [email, setEmail] = useState('');
     const [techs, setTechs] = useState('');
     
+    //Verifica se ja tem algum user salvo no localStorage
+    useEffect(() =>{
+        AsyncStorage.getItem('user').then(user=>{
+            if(user){
+                navigation.navigate('Home')
+            }
+        })
+    },[]);
+
     async function handleSubmit(){
         //envia o email para o endpoint
         const response = await api.post('/sessions', {
@@ -18,7 +27,7 @@ export default function Login({navigation}) {
 
         await AsyncStorage.setItem('user', _id);
         await AsyncStorage.setItem('techs', techs);
-
+        
         navigation.navigate('Home');
     }
 
