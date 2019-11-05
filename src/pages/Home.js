@@ -25,7 +25,7 @@ export default function Home({ navigation }) {
         <SafeAreaView style={styles.container}>
             <Image style={styles.logo} source={logo} />
             <ScrollView>
-                {techs.map(tech => <SpotList key={tech._id} tech={tech} />)}
+                {techs.map(tech => <SpotList key={tech} tech={tech} />)}
                 <TouchableOpacity onPress={exit} style={styles.button}>
                     <Text style={styles.buttonText}>SAIR</Text>
                 </TouchableOpacity>

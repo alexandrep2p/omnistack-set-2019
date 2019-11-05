@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { withNavigation } from 'react-navigation';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
 
 import api from '../services/api';
 
-export default function SpotList({ tech }) {
+function SpotList({ tech, navigation }) {
     const [spots, setSpots] = useState([]);
 
     useEffect(() => {
@@ -14,23 +15,29 @@ export default function SpotList({ tech }) {
             setSpots(response.data);
         }
         loadSpots();
+        
     }, []);
+
+    function handleNavigate() {
+        navigation.navigate('Book');
+    }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Empresas que utilizam <Text style={styles.bold}>{tech}</Text></Text>
+            <Text keykeyExtractor={tech => tech._id} style={styles.title}>Empresas que utilizam <Text style={styles.bold}>{tech}</Text></Text>
             <FlatList
                 style={styles.list}
                 data={spots}
-                keyExtractor={item => spots._id}
+                keyExtractor={spot => spot._id}
+                key={spots._id}
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item }) => (
                     <View style={styles.listItem}>
-                        <Image style={styles.thumbnail} source={{ uri: item.thumbnail_url }} />
+                        <Image style={styles.thumbnail} source={{uri:item.thumbnail_url}}/>
                         <Text style={styles.company}>{item.company}</Text>
                         <Text style={styles.price}>{item.price ? `R$${item.price}/dia` : `GRATUITO`}</Text>
-                        <TouchableOpacity onPress={() => {}} style={styles.button}>
+                        <TouchableOpacity onPress={handleNavigate} style={styles.button}>
                             <Text style={styles.buttonText}>Solicitar Reserva</Text>
                         </TouchableOpacity>
                     </View>
@@ -53,13 +60,13 @@ const styles = StyleSheet.create({
     bold: {
         fontWeight: 'bold',
     },
-    list:{
+    list: {
         paddingHorizontal: 20
     },
     listItem: {
         marginRight: 15,
     },
-    thumbnail:{
+    thumbnail: {
         width: 200,
         height: 120,
         resizeMode: 'cover',
@@ -71,7 +78,7 @@ const styles = StyleSheet.create({
         color: '#333',
         marginTop: 10
     },
-    price:{
+    price: {
         fontSize: 15,
         color: '#999',
         marginTop: 5
@@ -84,9 +91,11 @@ const styles = StyleSheet.create({
         borderRadius: 2,
         marginTop: 15
     },
-    buttonText:{
-        color:'#FFF',
+    buttonText: {
+        color: '#FFF',
         fontWeight: 'bold',
         fontSize: 15
     }
 });
+
+export default withNavigation(SpotList);
